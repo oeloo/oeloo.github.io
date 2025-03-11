@@ -58,8 +58,11 @@ function initializeLanguageSelector() {
     // Populate language options dynamically
     for (const lang in translations) {
         const option = document.createElement('option');
+        // Set the value for each option
         option.value = lang;
-        option.textContent = `${translations[lang].flag} ${translations[lang].nativeName}`;
+        
+        // Use innerHTML to include the flag emoji and native name
+        option.innerHTML = `${translations[lang].flag} ${translations[lang].nativeName}`;
         selector.appendChild(option);
     }
     
