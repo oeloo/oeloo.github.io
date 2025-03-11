@@ -52,12 +52,14 @@ function updateChartLabels(lang) {
 function initializeLanguageSelector() {
     const selector = document.getElementById('language-selector');
     
+    // Clear existing options
+    selector.innerHTML = '';
+    
     // Populate language options
     for (const lang in translations) {
         const option = document.createElement('option');
         option.value = lang;
-        const flagEmoji = selector.querySelector(`option[value="${lang}"]`).getAttribute('data-flag');
-        option.textContent = `${flagEmoji} ${translations[lang].nativeName}`;
+        option.textContent = `${translations[lang].flag} ${translations[lang].nativeName}`;
         selector.appendChild(option);
     }
     
