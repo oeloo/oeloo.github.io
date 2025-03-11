@@ -45,27 +45,58 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .language-picker {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-picker select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .flag {
+            width: 20px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
-    <h2>Glycemia Chart Generator</h2>
+    <!-- Language Selector -->
+    <div class="language-picker">
+        <select id="language-selector" onchange="changeLanguage(this.value)">
+            <option value="en" data-flag="🇬🇧">English</option>
+            <option value="fr" data-flag="🇫🇷">Français</option>
+            <option value="es" data-flag="🇪🇸">Español</option>
+            <option value="de" data-flag="🇩🇪">Deutsch</option>
+            <option value="zh" data-flag="🇨🇳">中文</option>
+            <option value="ja" data-flag="🇯🇵">日本語</option>
+            <option value="ru" data-flag="🇷🇺">Русский</option>
+            <option value="pt" data-flag="🇵🇹">Português</option>
+        </select>
+    </div>
+
+    <h2 id="main-title">Glycemia Chart Generator</h2>
     
     <div class="container">
         <!-- Input Section -->
         <div id="input-container">
-            <h3>Enter Glycemia Data</h3>
+            <h3 id="data-title">Enter Glycemia Data</h3>
             <textarea id="data-input" placeholder="Paste your data here...
 Format: 8h : 2,95 g/L"></textarea><br>
             
             <div class="threshold-inputs">
-                <label for="threshold-min">Minimum Threshold (g/L):</label>
+                <label for="threshold-min" id="min-threshold-label">Minimum Threshold (g/L):</label>
                 <input type="number" id="threshold-min" value="1.0" step="0.1">
                 
-                <label for="threshold-max">Maximum Threshold (g/L):</label>
+                <label for="threshold-max" id="max-threshold-label">Maximum Threshold (g/L):</label>
                 <input type="number" id="threshold-max" value="2.0" step="0.1">
             </div>
             
-            <button onclick="generateChart()">Generate Chart</button>
+            <button onclick="generateChart()" id="generate-button">Generate Chart</button>
         </div>
 
         <!-- Chart Section -->
@@ -75,6 +106,113 @@ Format: 8h : 2,95 g/L"></textarea><br>
     </div>
 
     <script>
+        // Translations object
+        const translations = {
+            'en': {
+                'mainTitle': 'Glycemia Chart Generator',
+                'dataTitle': 'Enter Glycemia Data',
+                'minThresholdLabel': 'Minimum Threshold (g/L):',
+                'maxThresholdLabel': 'Maximum Threshold (g/L):',
+                'generateButton': 'Generate Chart',
+                'placeholder': 'Paste your data here...\nFormat: 8h : 2,95 g/L',
+                'chartTitle': 'Glycemia Chart',
+                'glycemiaLabel': 'Glycemia (g/L)',
+                'minThresholdLabel': 'Minimum Threshold',
+                'maxThresholdLabel': 'Maximum Threshold',
+                'hourLabel': 'Hour'
+            },
+            'fr': {
+                'mainTitle': 'Générateur de Courbe de Glycémie',
+                'dataTitle': 'Entrez les données de glycémie',
+                'minThresholdLabel': 'Seuil Minimum (g/L):',
+                'maxThresholdLabel': 'Seuil Maximum (g/L):',
+                'generateButton': 'Générer la Courbe',
+                'placeholder': 'Collez vos données ici...\nFormat: 8h : 2,95 g/L',
+                'chartTitle': 'Courbe de Glycémie',
+                'glycemiaLabel': 'Glycémie (g/L)',
+                'minThresholdLabel': 'Seuil Minimum',
+                'maxThresholdLabel': 'Seuil Maximum',
+                'hourLabel': 'Heure'
+            },
+            'es': {
+                'mainTitle': 'Generador de Gráficos de Glucemia',
+                'dataTitle': 'Introduzca los datos de glucemia',
+                'minThresholdLabel': 'Umbral Mínimo (g/L):',
+                'maxThresholdLabel': 'Umbral Máximo (g/L):',
+                'generateButton': 'Generar Gráfico',
+                'placeholder': 'Pegue sus datos aquí...\nFormato: 8h : 2,95 g/L',
+                'chartTitle': 'Gráfico de Glucemia',
+                'glycemiaLabel': 'Glucemia (g/L)',
+                'minThresholdLabel': 'Umbral Mínimo',
+                'maxThresholdLabel': 'Umbral Máximo',
+                'hourLabel': 'Hora'
+            },
+            'de': {
+                'mainTitle': 'Blutzucker-Diagramm-Generator',
+                'dataTitle': 'Geben Sie Blutzuckerdaten ein',
+                'minThresholdLabel': 'Minimaler Schwellenwert (g/L):',
+                'maxThresholdLabel': 'Maximaler Schwellenwert (g/L):',
+                'generateButton': 'Diagramm generieren',
+                'placeholder': 'Fügen Sie Ihre Daten hier ein...\nFormat: 8h : 2,95 g/L',
+                'chartTitle': 'Blutzucker-Diagramm',
+                'glycemiaLabel': 'Blutzucker (g/L)',
+                'minThresholdLabel': 'Minimaler Schwellenwert',
+                'maxThresholdLabel': 'Maximaler Schwellenwert',
+                'hourLabel': 'Stunde'
+            }
+            // Add more languages as needed
+        };
+
+        // Function to detect browser language
+        function detectBrowserLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0]; // Get just the language code part
+            
+            // Check if we support this language
+            if (translations[langCode]) {
+                return langCode;
+            }
+            
+            // Default to English if language not supported
+            return 'en';
+        }
+
+        // Function to change the interface language
+        function changeLanguage(langCode) {
+            // Default to English if the language is not supported
+            const lang = translations[langCode] ? langCode : 'en';
+            
+            // Update the language selector
+            document.getElementById('language-selector').value = lang;
+            
+            // Update text elements
+            document.getElementById('main-title').textContent = translations[lang].mainTitle;
+            document.getElementById('data-title').textContent = translations[lang].dataTitle;
+            document.getElementById('min-threshold-label').textContent = translations[lang].minThresholdLabel;
+            document.getElementById('max-threshold-label').textContent = translations[lang].maxThresholdLabel;
+            document.getElementById('generate-button').textContent = translations[lang].generateButton;
+            document.getElementById('data-input').placeholder = translations[lang].placeholder;
+            
+            // Store the selected language
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // If chart exists, update its labels
+            if (window.glycemiaChart instanceof Chart) {
+                updateChartLabels(lang);
+            }
+        }
+
+        // Function to update chart labels when language changes
+        function updateChartLabels(lang) {
+            window.glycemiaChart.options.plugins.title.text = translations[lang].chartTitle;
+            window.glycemiaChart.data.datasets[0].label = translations[lang].glycemiaLabel;
+            window.glycemiaChart.data.datasets[1].label = translations[lang].minThresholdLabel;
+            window.glycemiaChart.data.datasets[2].label = translations[lang].maxThresholdLabel;
+            window.glycemiaChart.options.scales.y.title.text = translations[lang].glycemiaLabel;
+            window.glycemiaChart.options.scales.x.title.text = translations[lang].hourLabel;
+            window.glycemiaChart.update();
+        }
+
         // Function to parse input data
         function parseData(input) {
             const lines = input.trim().split("\n"); // Split each line and remove spaces
@@ -127,6 +265,9 @@ Format: 8h : 2,95 g/L"></textarea><br>
             const thresholdMin = Array(hours.length).fill(thresholdMinValue);
             const thresholdMax = Array(hours.length).fill(thresholdMaxValue);
 
+            // Get current language
+            const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+
             // Destroy previous chart if it exists
             if (window.glycemiaChart instanceof Chart) {
                 window.glycemiaChart.destroy();
@@ -140,7 +281,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                     labels: hours,
                     datasets: [
                         {
-                            label: "Glycemia (g/L)",
+                            label: translations[currentLang].glycemiaLabel,
                             data: values,
                             borderColor: "blue",
                             backgroundColor: "rgba(0, 0, 255, 0.1)",
@@ -150,7 +291,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                             pointRadius: 5,
                         },
                         {
-                            label: "Minimum Threshold",
+                            label: translations[currentLang].minThresholdLabel,
                             data: thresholdMin,
                             borderColor: "orange",
                             borderDash: [5, 5],
@@ -158,7 +299,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                             pointRadius: 0,
                         },
                         {
-                            label: "Maximum Threshold",
+                            label: translations[currentLang].maxThresholdLabel,
                             data: thresholdMax,
                             borderColor: "red",
                             borderDash: [5, 5],
@@ -174,7 +315,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                         legend: { position: "top" },
                         title: {
                             display: true,
-                            text: 'Glycemia Chart'
+                            text: translations[currentLang].chartTitle
                         }
                     },
                     scales: {
@@ -184,13 +325,13 @@ Format: 8h : 2,95 g/L"></textarea><br>
                             max: Math.max(...values) + 0.5,
                             title: {
                                 display: true,
-                                text: 'Glycemia (g/L)'
+                                text: translations[currentLang].glycemiaLabel
                             }
                         },
                         x: {
                             title: {
                                 display: true,
-                                text: 'Hour'
+                                text: translations[currentLang].hourLabel
                             }
                         }
                     },
@@ -200,8 +341,9 @@ Format: 8h : 2,95 g/L"></textarea><br>
             console.log("Chart successfully generated");
         }
         
-        // Pre-fill with example data for testing
+        // Initialize the page on load
         window.onload = function() {
+            // Pre-fill with example data for testing
             document.getElementById("data-input").value = 
 `8h : 2,95 g/L
 9h : 2,91 g/L
@@ -216,6 +358,17 @@ Format: 8h : 2,95 g/L"></textarea><br>
 18h : 2,37 g/L
 19h : 2,74 g/L
 20h : 2,87 g/L`;
+
+            // Check for saved language preference
+            let preferredLang = localStorage.getItem('preferredLanguage');
+            
+            // If no saved preference, detect browser language
+            if (!preferredLang) {
+                preferredLang = detectBrowserLanguage();
+            }
+            
+            // Set the interface language
+            changeLanguage(preferredLang);
         };
     </script>
 </body>
