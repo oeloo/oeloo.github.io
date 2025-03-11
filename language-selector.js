@@ -60,7 +60,7 @@ function initializeLanguageSelector() {
         
         // Set the value and display text for each option
         option.value = lang;
-        option.textContent = `${translations[lang].flag} ${translations[lang].nativeName}`;
+        option.textContent = `${translations[lang].nativeName}`;
         
         selector.appendChild(option);
     }
