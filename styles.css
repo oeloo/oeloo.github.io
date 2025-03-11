@@ -54,3 +54,14 @@ button {
     margin-right: 5px;
     vertical-align: middle;
 }
+
+/* Style for the dropdown */
+#language-selector {
+    font-family: Arial, sans-serif; /* Ensure emoji compatibility */
+    font-size: 16px; /* Adjust font size for better visibility */
+}
+
+/* Style for individual options */
+#language-selector option {
+    font-family: Arial, sans-serif; /* Ensure emoji compatibility */
+}
