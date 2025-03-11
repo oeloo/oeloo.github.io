@@ -1,6 +1,6 @@
 const translations = {
     'en': {
-        'flag': '🇬🇧',
+        'countryCode': 'gb',
         'nativeName': 'English',
         'mainTitle': 'Glycemia Chart Generator',
         'dataTitle': 'Enter Glycemia Data',
@@ -15,7 +15,7 @@ const translations = {
         'hourLabel': 'Hour'
     },
     'fr': {
-        'flag': '🇫🇷',
+        'countryCode': 'fr',
         'nativeName': 'Français',
         'mainTitle': 'Générateur de Courbe de Glycémie',
         'dataTitle': 'Entrez les données de glycémie',
@@ -30,7 +30,7 @@ const translations = {
         'hourLabel': 'Heure'
     },
     'es': {
-        'flag': '🇪🇸',
+        'countryCode': 'es',
         'nativeName': 'Español',
         'mainTitle': 'Generador de Gráficos de Glucemia',
         'dataTitle': 'Introduzca los datos de glucemia',
@@ -45,7 +45,7 @@ const translations = {
         'hourLabel': 'Hora'
     },
     'de': {
-        'flag': '🇩🇪',
+        'countryCode': 'de',
         'nativeName': 'Deutsch',
         'mainTitle': 'Blutzucker-Diagramm-Generator',
         'dataTitle': 'Geben Sie Blutzuckerdaten ein',
