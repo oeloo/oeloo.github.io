@@ -56,7 +56,8 @@ function initializeLanguageSelector() {
     for (const lang in translations) {
         const option = document.createElement('option');
         option.value = lang;
-        option.textContent = translations[lang].mainTitle;
+        const flagEmoji = selector.querySelector(`option[value="${lang}"]`).getAttribute('data-flag');
+        option.textContent = `${flagEmoji} ${translations[lang].nativeName}`;
         selector.appendChild(option);
     }
     
