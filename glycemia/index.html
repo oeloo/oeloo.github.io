@@ -11,10 +11,8 @@
 <body>
     <!-- Language Selector -->
     <div class="language-picker">
-        <button id="dropdown-button" class="dropdown-button">Select Language</button>
-        <ul id="dropdown-menu" class="dropdown-menu">
-            <!-- Options will be populated dynamically -->
-        </ul>
+        <select id="language-selector" onchange="changeLanguage(this.value)">
+        </select>
     </div>
 
     <h2 id="main-title">Glycemia Chart Generator</h2>
