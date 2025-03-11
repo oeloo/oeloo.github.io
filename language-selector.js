@@ -55,7 +55,7 @@ function initializeLanguageSelector() {
     // Clear existing options
     selector.innerHTML = '';
     
-    // Populate language options
+    // Populate language options dynamically
     for (const lang in translations) {
         const option = document.createElement('option');
         option.value = lang;
