@@ -54,17 +54,3 @@ const translations = {
     }
     // Add more languages as needed
 };
-
-// Function to detect browser language
-function detectBrowserLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const langCode = browserLang.split('-')[0]; // Get just the language code part
-    
-    // Check if we support this language
-    if (translations[langCode]) {
-        return langCode;
-    }
-    
-    // Default to English if language not supported
-    return 'en';
-}
