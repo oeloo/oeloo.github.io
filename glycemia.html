@@ -20,15 +20,22 @@
             gap: 20px;
         }
         #input-container {
-            width: 20%;
+            width: 30%;
         }
         textarea {
             width: 100%;
             height: 300px;
             font-size: 14px;
         }
+        .threshold-inputs {
+            margin-top: 10px;
+        }
+        .threshold-inputs label {
+            display: block;
+            margin-top: 5px;
+        }
         #chart-container {
-            width: 100%;
+            width: 65%;
             height: 500px;
             border: 1px solid #ddd;
         }
@@ -41,15 +48,24 @@
     </style>
 </head>
 <body>
-    <h2>Générateur de Courbe de Glycémie</h2>
+    <h2>Glycemia Chart Generator</h2>
     
     <div class="container">
         <!-- Input Section -->
         <div id="input-container">
-            <h3>Entrez les données de glycémie</h3>
-            <textarea id="data-input" placeholder="Collez vos données ici...
+            <h3>Enter Glycemia Data</h3>
+            <textarea id="data-input" placeholder="Paste your data here...
 Format: 8h : 2,95 g/L"></textarea><br>
-            <button onclick="generateChart()">Générer la courbe</button>
+            
+            <div class="threshold-inputs">
+                <label for="threshold-min">Minimum Threshold (g/L):</label>
+                <input type="number" id="threshold-min" value="1.0" step="0.1">
+                
+                <label for="threshold-max">Maximum Threshold (g/L):</label>
+                <input type="number" id="threshold-max" value="2.0" step="0.1">
+            </div>
+            
+            <button onclick="generateChart()">Generate Chart</button>
         </div>
 
         <!-- Chart Section -->
@@ -59,60 +75,64 @@ Format: 8h : 2,95 g/L"></textarea><br>
     </div>
 
     <script>
-        // Fonction pour analyser les données d'entrée
+        // Function to parse input data
         function parseData(input) {
-            const lines = input.trim().split("\n"); // Séparer chaque ligne et supprimer les espaces
+            const lines = input.trim().split("\n"); // Split each line and remove spaces
             const hours = [];
             const values = [];
 
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim();
-                // Regex simplifiée pour extraire l'heure et la valeur
+                // Regex to extract hour and value
                 const match = line.match(/(\d+h)\s*:\s*([\d,]+)/);
                 
                 if (match) {
-                    hours.push(match[1]); // Extraire l'heure
-                    // Convertir la valeur en float (remplacer la virgule par un point)
+                    hours.push(match[1]); // Extract hour
+                    // Convert value to float (replace comma with dot)
                     const value = parseFloat(match[2].replace(",", "."));
                     values.push(value);
-                    console.log(`Ligne ${i+1}: ${match[1]} = ${value}`);
+                    console.log(`Line ${i+1}: ${match[1]} = ${value}`);
                 } else {
-                    console.log(`Ligne ${i+1} non reconnue: ${line}`);
+                    console.log(`Line ${i+1} not recognized: ${line}`);
                 }
             }
 
-            console.log("Heures:", hours);
-            console.log("Valeurs:", values);
+            console.log("Hours:", hours);
+            console.log("Values:", values);
             return { hours, values };
         }
 
-        // Fonction pour générer la courbe
+        // Function to generate the chart
         function generateChart() {
-            const input = document.getElementById("data-input").value; // Récupérer les données saisies
+            const input = document.getElementById("data-input").value; // Get input data
             
             if (!input.trim()) {
-                alert("Veuillez entrer des données");
+                alert("Please enter data");
                 return;
             }
             
             const { hours, values } = parseData(input);
 
-            // Vérifier si des données valides ont été extraites
+            // Check if valid data was extracted
             if (hours.length === 0 || values.length === 0) {
-                alert("Aucune donnée valide trouvée. Veuillez entrer des données au format : '8h : 2,95 g/L'");
+                alert("No valid data found. Please enter data in the format: '8h : 2,95 g/L'");
                 return;
             }
 
-            // Seuils
-            const thresholdMin = Array(hours.length).fill(0.8); // Seuil minimum (1 g/L)
-            const thresholdMax = Array(hours.length).fill(2.7); // Seuil maximum (2 g/L)
+            // Get threshold values from inputs
+            const thresholdMinValue = parseFloat(document.getElementById("threshold-min").value);
+            const thresholdMaxValue = parseFloat(document.getElementById("threshold-max").value);
+            
+            // Create arrays with threshold values
+            const thresholdMin = Array(hours.length).fill(thresholdMinValue);
+            const thresholdMax = Array(hours.length).fill(thresholdMaxValue);
 
-            // Détruire l'ancien graphique s'il existe
+            // Destroy previous chart if it exists
             if (window.glycemiaChart instanceof Chart) {
                 window.glycemiaChart.destroy();
             }
 
-            // Créer le graphique
+            // Create the chart
             const ctx = document.getElementById("glycemiaChart").getContext("2d");
             window.glycemiaChart = new Chart(ctx, {
                 type: "line",
@@ -120,7 +140,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                     labels: hours,
                     datasets: [
                         {
-                            label: "Glycémie (g/L)",
+                            label: "Glycemia (g/L)",
                             data: values,
                             borderColor: "blue",
                             backgroundColor: "rgba(0, 0, 255, 0.1)",
@@ -130,7 +150,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                             pointRadius: 5,
                         },
                         {
-                            label: "Valeur seuil min",
+                            label: "Minimum Threshold",
                             data: thresholdMin,
                             borderColor: "orange",
                             borderDash: [5, 5],
@@ -138,7 +158,7 @@ Format: 8h : 2,95 g/L"></textarea><br>
                             pointRadius: 0,
                         },
                         {
-                            label: "Valeur seuil max",
+                            label: "Maximum Threshold",
                             data: thresholdMax,
                             borderColor: "red",
                             borderDash: [5, 5],
@@ -154,33 +174,33 @@ Format: 8h : 2,95 g/L"></textarea><br>
                         legend: { position: "top" },
                         title: {
                             display: true,
-                            text: 'Courbe de Glycémie'
+                            text: 'Glycemia Chart'
                         }
                     },
                     scales: {
                         y: { 
                             beginAtZero: false,
                             min: 0,
-                            max: 3.5,
+                            max: Math.max(...values) + 0.5,
                             title: {
                                 display: true,
-                                text: 'Glycémie (g/L)'
+                                text: 'Glycemia (g/L)'
                             }
                         },
                         x: {
                             title: {
                                 display: true,
-                                text: 'Heure'
+                                text: 'Hour'
                             }
                         }
                     },
                 },
             });
             
-            console.log("Graphique généré avec succès");
+            console.log("Chart successfully generated");
         }
         
-        // Pré-remplir avec un exemple pour faciliter les tests
+        // Pre-fill with example data for testing
         window.onload = function() {
             document.getElementById("data-input").value = 
 `8h : 2,95 g/L
