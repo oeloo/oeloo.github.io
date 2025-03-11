@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glycemia Chart Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-picker">
+        <select id="language-selector" onchange="changeLanguage(this.value)">
+            <!-- Options will be populated by JavaScript -->
+        </select>
+    </div>
+
+    <h2 id="main-title">Glycemia Chart Generator</h2>
+    
+    <div class="container">
+        <!-- Input Section -->
+        <div id="input-container">
+            <h3 id="data-title">Enter Glycemia Data</h3>
+            <textarea id="data-input" placeholder="Paste your data here..."></textarea><br>
+            
+            <div class="threshold-inputs">
+                <label for="threshold-min" id="min-threshold-label">Minimum Threshold (g/L):</label>
+                <input type="number" id="threshold-min" value="1.0" step="0.1">
+                
+                <label for="threshold-max" id="max-threshold-label">Maximum Threshold (g/L):</label>
+                <input type="number" id="threshold-max" value="2.0" step="0.1">
+            </div>
+            
+            <button onclick="generateChart()" id="generate-button">Generate Chart</button>
+        </div>
+
+        <!-- Chart Section -->
+        <div id="chart-container">
+            <canvas id="glycemiaChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Module scripts -->
+    <script src="i18n/translations.js"></script>
+    <script src="../ui/language-selector.js"></script>
+    <script src="parser.js"></script>
+    <script src="chart.js"></script>
+</body>
+</html>
