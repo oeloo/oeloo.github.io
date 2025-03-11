@@ -1,6 +1,6 @@
-// Translations object
 const translations = {
     'en': {
+        'nativeName': 'English',
         'mainTitle': 'Glycemia Chart Generator',
         'dataTitle': 'Enter Glycemia Data',
         'minThresholdLabel': 'Minimum Threshold (g/L):',
@@ -14,6 +14,7 @@ const translations = {
         'hourLabel': 'Hour'
     },
     'fr': {
+        'nativeName': 'Français',
         'mainTitle': 'Générateur de Courbe de Glycémie',
         'dataTitle': 'Entrez les données de glycémie',
         'minThresholdLabel': 'Seuil Minimum (g/L):',
@@ -27,6 +28,7 @@ const translations = {
         'hourLabel': 'Heure'
     },
     'es': {
+        'nativeName': 'Español',
         'mainTitle': 'Generador de Gráficos de Glucemia',
         'dataTitle': 'Introduzca los datos de glucemia',
         'minThresholdLabel': 'Umbral Mínimo (g/L):',
@@ -40,6 +42,7 @@ const translations = {
         'hourLabel': 'Hora'
     },
     'de': {
+        'nativeName': 'Deutsch',
         'mainTitle': 'Blutzucker-Diagramm-Generator',
         'dataTitle': 'Geben Sie Blutzuckerdaten ein',
         'minThresholdLabel': 'Minimaler Schwellenwert (g/L):',
@@ -52,5 +55,4 @@ const translations = {
         'maxThresholdLabel': 'Maximaler Schwellenwert',
         'hourLabel': 'Stunde'
     }
-    // Add more languages as needed
 };
