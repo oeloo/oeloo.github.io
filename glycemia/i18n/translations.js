@@ -1,18 +1,4 @@
 const translations = {
-    'en': {
-        'nativeName': 'English',
-        'mainTitle': 'Glycemia Chart Generator',
-        'dataTitle': 'Enter Glycemia Data',
-        'minThresholdLabel': 'Minimum Threshold (g/L):',
-        'maxThresholdLabel': 'Maximum Threshold (g/L):',
-        'generateButton': 'Generate Chart',
-        'placeholder': 'Paste your data here...\nFormat: 8h : 2,95 g/L',
-        'chartTitle': 'Glycemia Chart',
-        'glycemiaLabel': 'Glycemia (g/L)',
-        'minThresholdLabel': 'Minimum Threshold',
-        'maxThresholdLabel': 'Maximum Threshold',
-        'hourLabel': 'Hour'
-    },
     'fr': {
         'nativeName': 'Français',
         'mainTitle': 'Générateur de Courbe de Glycémie',
@@ -27,6 +13,34 @@ const translations = {
         'maxThresholdLabel': 'Seuil Maximum',
         'hourLabel': 'Heure'
     },
+    'en': {
+        'nativeName': 'English',
+        'mainTitle': 'Glycemia Chart Generator',
+        'dataTitle': 'Enter Glycemia Data',
+        'minThresholdLabel': 'Minimum Threshold (g/L):',
+        'maxThresholdLabel': 'Maximum Threshold (g/L):',
+        'generateButton': 'Generate Chart',
+        'placeholder': 'Paste your data here...\nFormat: 8h : 2,95 g/L',
+        'chartTitle': 'Glycemia Chart',
+        'glycemiaLabel': 'Glycemia (g/L)',
+        'minThresholdLabel': 'Minimum Threshold',
+        'maxThresholdLabel': 'Maximum Threshold',
+        'hourLabel': 'Hour'
+    },
+        'de': {
+        'nativeName': 'Deutsch',
+        'mainTitle': 'Blutzucker-Diagramm-Generator',
+        'dataTitle': 'Geben Sie Blutzuckerdaten ein',
+        'minThresholdLabel': 'Minimaler Schwellenwert (g/L):',
+        'maxThresholdLabel': 'Maximaler Schwellenwert (g/L):',
+        'generateButton': 'Diagramm generieren',
+        'placeholder': 'Fügen Sie Ihre Daten hier ein...\nFormat: 8h : 2,95 g/L',
+        'chartTitle': 'Blutzucker-Diagramm',
+        'glycemiaLabel': 'Blutzucker (g/L)',
+        'minThresholdLabel': 'Minimaler Schwellenwert',
+        'maxThresholdLabel': 'Maximaler Schwellenwert',
+        'hourLabel': 'Stunde'
+    },
     'es': {
         'nativeName': 'Español',
         'mainTitle': 'Generador de Gráficos de Glucemia',
@@ -40,19 +54,5 @@ const translations = {
         'minThresholdLabel': 'Umbral Mínimo',
         'maxThresholdLabel': 'Umbral Máximo',
         'hourLabel': 'Hora'
-    },
-    'de': {
-        'nativeName': 'Deutsch',
-        'mainTitle': 'Blutzucker-Diagramm-Generator',
-        'dataTitle': 'Geben Sie Blutzuckerdaten ein',
-        'minThresholdLabel': 'Minimaler Schwellenwert (g/L):',
-        'maxThresholdLabel': 'Maximaler Schwellenwert (g/L):',
-        'generateButton': 'Diagramm generieren',
-        'placeholder': 'Fügen Sie Ihre Daten hier ein...\nFormat: 8h : 2,95 g/L',
-        'chartTitle': 'Blutzucker-Diagramm',
-        'glycemiaLabel': 'Blutzucker (g/L)',
-        'minThresholdLabel': 'Minimaler Schwellenwert',
-        'maxThresholdLabel': 'Maximaler Schwellenwert',
-        'hourLabel': 'Stunde'
     }
 };
