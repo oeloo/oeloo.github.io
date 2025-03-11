@@ -48,49 +48,33 @@ function updateChartLabels(lang) {
     window.glycemiaChart.update();
 }
 
-// Initialize language selector
-function initializeCustomDropdown() {
-    const translations = {
-        'en': { countryCode: 'gb', nativeName: 'English' },
-        'fr': { countryCode: 'fr', nativeName: 'Français' },
-        'es': { countryCode: 'es', nativeName: 'Español' },
-        'de': { countryCode: 'de', nativeName: 'Deutsch' }
-        // Add more languages as needed...
-    };
-
-    const button = document.getElementById('dropdown-button');
-    const menu = document.getElementById('dropdown-menu');
-
-    // Populate the dropdown menu
+function initializeLanguageSelector() {
+    const selector = document.getElementById('language-selector');
+    
+    // Clear existing options
+    selector.innerHTML = '';
+    
+    // Populate language options dynamically
     for (const lang in translations) {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span class="flag-icon flag-icon-${translations[lang].countryCode}"></span>
-            ${translations[lang].nativeName}
-        `;
-        li.dataset.lang = lang; // Store the language code in a data attribute
-        menu.appendChild(li);
+        const option = document.createElement('option');
         
-        // Add click event listener to each option
-        li.addEventListener('click', () => {
-            changeLanguage(lang); // Call your existing changeLanguage function
-            button.innerHTML = li.innerHTML; // Update button text to selected language
-            menu.style.display = 'none'; // Close the dropdown
-        });
+        // Set the value and display text for each option
+        option.value = lang;
+        option.textContent = `${translations[lang].flag} ${translations[lang].nativeName}`;
+        
+        selector.appendChild(option);
     }
-
-    // Toggle dropdown visibility on button click
-    button.addEventListener('click', () => {
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Close dropdown if clicked outside
-    document.addEventListener('click', (event) => {
-        if (!event.target.closest('.language-picker')) {
-            menu.style.display = 'none';
-        }
-    });
+    
+    // Check for saved language preference
+    let preferredLang = localStorage.getItem('preferredLanguage');
+    
+    // If no saved preference, detect browser language
+    if (!preferredLang) {
+        preferredLang = detectBrowserLanguage();
+    }
+    
+    // Set the interface language
+    changeLanguage(preferredLang);
 }
-
 // Initialize the custom dropdown on page load
-document.addEventListener('DOMContentLoaded', initializeCustomDropdown);
+document.addEventListener('DOMContentLoaded', initializeLanguageSelector);
