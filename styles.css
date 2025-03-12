@@ -23,6 +23,10 @@ body {
 #input-container {
     width: 30%;
 }
+input {
+    background-color: var(--element-background-color);
+    color: var(--text-color);
+}
 textarea {
     width: 100%;
     height: 300px;
@@ -31,20 +35,13 @@ textarea {
     border-color: var(--border-color);
     background-color: var(--element-background-color);
 }
-.threshold-inputs {
-    margin-top: 10px;
-}
-.threshold-inputs label {
-    display: block;
-    margin-top: 5px;
-}
 #chart-container {
     width: 65%;
     height: 500px;
     border: 1px solid var(--border-color);;
 }
 button {
-    margin-top: 10px;
+    margin-top: 30px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -69,6 +66,21 @@ button {
     display: inline-block;
     margin-right: 5px;
     vertical-align: middle;
+}
+.threshold-inputs {
+    margin-top: 20px;
+}
+.min-max-inputs {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.min-max-inputs input {
+    width: 70px;
+}
+#threshold-min , #threshold-max {
+    margin-right: 20px;
+    margin-left: 5px;
 }
 
 @media (prefers-color-scheme: dark) {
