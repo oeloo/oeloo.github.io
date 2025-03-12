@@ -23,11 +23,13 @@
             <textarea id="data-input" placeholder="Paste your data here..."></textarea><br>
             
             <div class="threshold-inputs">
-                <label for="threshold-min" id="min-threshold-label">Minimum Threshold (g/L):</label>
-                <input type="number" id="threshold-min" value="1.0" step="0.1">
-                
-                <label for="threshold-max" id="max-threshold-label">Maximum Threshold (g/L):</label>
-                <input type="number" id="threshold-max" value="2.0" step="0.1">
+                <label for="threshold-label" id="threshold-label">Threshold (g/L)</label>
+                <div class="min-max-inputs">
+                    <label for="threshold-min" id="min-threshold-label">Min:</label>
+                    <input type="number" id="threshold-min" value="1.0" step="0.1">
+                    <label for="threshold-max" id="max-threshold-label">Max:</label>
+                    <input type="number" id="threshold-max" value="2.0" step="0.1">
+                </div>
             </div>
             
             <button onclick="generateChart()" id="generate-button">Generate Chart</button>
