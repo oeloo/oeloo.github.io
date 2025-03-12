@@ -57,7 +57,29 @@ button {
 
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: black;
-        color: white;
+        background-color: black; /* Dark background */
+        color: white; /* Light text */
+    }
+
+    #chart-container {
+        border-color: #555; /* Adjust border color for dark mode */
+    }
+
+    button {
+        background-color: #444; /* Darker button background */
+        color: white; /* Button text color */
+        border-color: #666; /* Button border in dark mode */
+    }
+
+    textarea {
+        background-color: #333; /* Darker textarea background */
+        color: white; /* Light text for textarea */
+        border-color: #555; /* Adjust textarea border color */
+    }
+
+    .language-picker select {
+        background-color: #333; /* Darker dropdown background */
+        color: white; /* Light text for dropdown */
+        border-color: #555; /* Adjust dropdown border color */
     }
 }
