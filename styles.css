@@ -54,3 +54,10 @@ button {
     margin-right: 5px;
     vertical-align: middle;
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+        color: white;
+    }
+}
