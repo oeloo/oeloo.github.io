@@ -1,6 +1,8 @@
 :root {
     --background-color: #ffffff;
     --text-color: #000000;
+    --border-color: #ccc;
+    --element-background-color: #FFFFFF;
 }
 
 body {
@@ -26,6 +28,8 @@ textarea {
     height: 300px;
     font-size: 14px;
     color: var(--text-color);
+    border-color: var(--border-color);
+    background-color: var(--element-background-color);
 }
 .threshold-inputs {
     margin-top: 10px;
@@ -37,7 +41,7 @@ textarea {
 #chart-container {
     width: 65%;
     height: 500px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);;
 }
 button {
     margin-top: 10px;
@@ -45,17 +49,19 @@ button {
     font-size: 16px;
     cursor: pointer;
     color: var(--text-color);
+    background-color: var(--element-background-color);
 }
 .language-picker {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: var(--text-color);
 }
 .language-picker select {
     padding: 5px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid  var(--border-color);
+    color: var(--text-color);
+    background-color: var(--element-background-color);
 }
 .flag {
     width: 20px;
@@ -69,24 +75,11 @@ button {
     :root {
         --background-color: #000000;
         --text-color: #FFFFFF;
-    }
-
-    #chart-container {
-        border-color: #555;
+        --border-color: #555;
+        --element-background-color: #333;
     }
 
     button {
-        background-color: #444;
         border-color: #666;
-    }
-
-    textarea {
-        background-color: #333;
-        border-color: #555;
-    }
-
-    .language-picker select {
-        background-color: #333;
-        border-color: #555;
     }
 }
