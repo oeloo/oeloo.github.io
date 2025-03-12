@@ -23,6 +23,7 @@ function changeLanguage(langCode) {
     // Update text elements
     document.getElementById('main-title').textContent = translations[lang].mainTitle;
     document.getElementById('data-title').textContent = translations[lang].dataTitle;
+    document.getElementById('threshold-label').textContent = translations[lang].thresholdLabel;
     document.getElementById('min-threshold-label').textContent = translations[lang].minThresholdLabel;
     document.getElementById('max-threshold-label').textContent = translations[lang].maxThresholdLabel;
     document.getElementById('generate-button').textContent = translations[lang].generateButton;
