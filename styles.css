@@ -82,9 +82,9 @@ button {
     margin-right: 20px;
     margin-left: 5px;
 }
-//FORCE FRENCH LANGUAGE ONLY
+/*FORCE FRENCH LANGUAGE ONLY*/
 .language-picker {
-    display: none;
+    display: none ;
 }
 
 @media (prefers-color-scheme: dark) {
