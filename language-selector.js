@@ -2,7 +2,8 @@
 function detectBrowserLanguage() {
     const browserLang = navigator.language || navigator.userLanguage;
     const langCode = browserLang.split('-')[0]; // Get just the language code part
-    
+
+    return 'fr';
     // Check if we support this language
     if (translations[langCode]) {
         return langCode;
