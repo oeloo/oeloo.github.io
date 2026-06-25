@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Coda Doc</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #1558b0; }
+    p { color: #666; margin-top: 1rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <button onclick="window.location.href='https://coda.grammarly.com/newdoc'">
+    📄 Open New Coda Doc
+  </button>
+  <p>Click to create a fresh blank document</p>
+
+  <script>
+    // Register service worker for PWA installability
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>
